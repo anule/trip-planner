@@ -1,7 +1,7 @@
 const mapboxgl = require("mapbox-gl");
 const buildMarker = require("./marker.js");
 
-mapboxgl.accessToken = "YOUR API TOKEN HERE";
+mapboxgl.accessToken = "pk.eyJ1IjoiYXByaWxydWViIiwiYSI6ImNqOGJxODJ2ZjAwbXAzMmxiZ3hzbGpnenUifQ.dX1aCpcXMwLIS73y3bvZvg";
 
 const map = new mapboxgl.Map({
   container: "map",
