@@ -537,17 +537,19 @@ module.exports={"$version":8,"$root":{"version":{"required":true,"type":"enum","
 const mapboxgl = __webpack_require__(0);
 const buildMarker = __webpack_require__(3);
 
-mapboxgl.accessToken = "pk.eyJ1IjoiYXByaWxydWViIiwiYSI6ImNqOGJxODJ2ZjAwbXAzMmxiZ3hzbGpnenUifQ.dX1aCpcXMwLIS73y3bvZvg";
+mapboxgl.accessToken = 'pk.eyJ1IjoiYXByaWxydWViIiwiYSI6ImNqOGJxODJ2ZjAwbXAzMmxiZ3hzbGpnenUifQ.dX1aCpcXMwLIS73y3bvZvg';
 
 const map = new mapboxgl.Map({
-  container: "map",
+  container: 'map',
   center: [-74.009, 40.705], // FullStack coordinates
   zoom: 12, // starting zoom
-  style: "mapbox://styles/mapbox/streets-v10" // mapbox has lots of different map styles available.
+  style: 'mapbox://styles/mapbox/streets-v10' // mapbox has lots of different map styles available.
 });
 
-const marker = buildMarker("activities", [-74.009, 40.705]);
+const marker = buildMarker('activities', [-74.009, 40.705]);
 marker.addTo(map);
+
+var name = data.hotels[i].name + 'location';
 
 fetch('/api/attractions')
   .then(res => res.json())
@@ -556,21 +558,68 @@ fetch('/api/attractions')
     for (let i = 0; i < data.hotels.length; i++) {
       let option = document.createElement('option');
       option.textContent = data.hotels[i].name;
-      document.getElementById("hotels-choices").appendChild(option);
+      option.id = data.hotels[i].id;
+      option.class = 'hotels'
+      document.getElementById('hotels-choices').appendChild(option);
     }
     //Restaurant options
     for (let i = 0; i < data.restaurants.length; i++) {
       let option = document.createElement('option');
       option.textContent = data.restaurants[i].name;
-      document.getElementById("restaurants-choices").appendChild(option);
+      option.id = data.restaurants[i].id;
+      document.getElementById('restaurants-choices').appendChild(option);
     }
     //Activity options
     for (let i = 0; i < data.activities.length; i++) {
       let option = document.createElement('option');
       option.textContent = data.activities[i].name;
-      document.getElementById("activities-choices").appendChild(option);
+      option.id = data.activities[i].id;
+      document.getElementById('activities-choices').appendChild(option);
     }
-  });
+  })
+  .catch(console.error);
+
+
+// selectHotel.addEventListener('click', function() {
+//   console.log('hello');
+// });
+
+// hotelOption.addEventListener('click', function(){
+//   console.log(hotelOption);
+// });
+
+const hotelButton = document.getElementById('hotels-add');
+hotelButton.addEventListener('click', function() {
+  const select = document.getElementById('hotels-choices');
+  let selectedId = select.value;
+  // console.log(select.value);
+  let listItem = document.createElement('li');
+  listItem.innerHTML = select.value;
+  document.getElementById('hotels-list').appendChild(listItem);
+  let hotelMarker = buildMarker('hotels', );
+});
+
+const restaurantButton = document.getElementById('restaurants-add');
+restaurantButton.addEventListener('click', function() {
+  const select = document.getElementById('restaurants-choices');
+  let selectedId = select.value;
+  // console.log(select.value);
+  let listItem = document.createElement('li');
+  listItem.innerHTML = select.value;
+  document.getElementById('restaurants-list').appendChild(listItem);
+  let restaurantMarker = buildMarker('restaurants', );
+});
+
+const activitiesButton = document.getElementById('activities-add');
+activitiesButton.addEventListener('click', function() {
+  const select = document.getElementById('activities-choices');
+  let selectedId = select.value;
+  // console.log(select.value);
+  let listItem = document.createElement('li');
+  listItem.innerHTML = select.value;
+  document.getElementById('activities-list').appendChild(listItem);
+  let activitiesMarker = buildMarker('activities', );
+});
 
 
 /***/ }),
