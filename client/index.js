@@ -13,55 +13,53 @@ const map = new mapboxgl.Map({
 const marker = buildMarker('activities', [-74.009, 40.705]);
 marker.addTo(map);
 
-var name = data.hotels[i].name + 'location';
+// var name = data.hotels[i].name + 'location';
 
-fetch('/api/attractions')
+const callFetch = () => fetch('/api/attractions')
   .then(res => res.json())
-  .then(data => {
-    //Hotel options
-    for (let i = 0; i < data.hotels.length; i++) {
-      let option = document.createElement('option');
-      option.textContent = data.hotels[i].name;
-      option.id = data.hotels[i].id;
-      option.class = 'hotels'
-      document.getElementById('hotels-choices').appendChild(option);
-    }
-    //Restaurant options
-    for (let i = 0; i < data.restaurants.length; i++) {
-      let option = document.createElement('option');
-      option.textContent = data.restaurants[i].name;
-      option.id = data.restaurants[i].id;
-      document.getElementById('restaurants-choices').appendChild(option);
-    }
-    //Activity options
-    for (let i = 0; i < data.activities.length; i++) {
-      let option = document.createElement('option');
-      option.textContent = data.activities[i].name;
-      option.id = data.activities[i].id;
-      document.getElementById('activities-choices').appendChild(option);
-    }
-  })
+  // .then(data => { console.log(data) })
   .catch(console.error);
 
 
-// selectHotel.addEventListener('click', function() {
-//   console.log('hello');
-// });
+    callFetch().then((data) => {
+      console.log(data);
+      //Hotel options
+      for (let i = 0; i < data.hotels.length; i++) {
+        let option = document.createElement('option');
+        option.textContent = data.hotels[i].name;
+        option.id = data.hotels[i].id;
+        option.class = 'hotels'
+        document.getElementById('hotels-choices').appendChild(option);
+      }
+      //Restaurant options
+      for (let i = 0; i < data.restaurants.length; i++) {
+        let option = document.createElement('option');
+        option.textContent = data.restaurants[i].name;
+        option.id = data.restaurants[i].id;
+        document.getElementById('restaurants-choices').appendChild(option);
+      }
+      //Activity options
+      for (let i = 0; i < data.activities.length; i++) {
+        let option = document.createElement('option');
+        option.textContent = data.activities[i].name;
+        option.id = data.activities[i].id;
+        document.getElementById('activities-choices').appendChild(option);
+      }
+      const hotelButton = document.getElementById('hotels-add');
+      hotelButton.addEventListener('click', function() {
+        const select = document.getElementById('hotels-choices');
+        let selectedId = select.value;
+        let selectedKey = selectedId.id;
+        console.log('key',selectedKey);
+        console.log(select)
+        let listItem = document.createElement('li');
+        listItem.innerHTML = select.value;
+        document.getElementById('hotels-list').appendChild(listItem);
+        console.log(data.hotels[+select.id].place.location)
+        let hotelMarker = buildMarker('hotels', data.hotels.place);
+      });
+    });
 
-// hotelOption.addEventListener('click', function(){
-//   console.log(hotelOption);
-// });
-
-const hotelButton = document.getElementById('hotels-add');
-hotelButton.addEventListener('click', function() {
-  const select = document.getElementById('hotels-choices');
-  let selectedId = select.value;
-  // console.log(select.value);
-  let listItem = document.createElement('li');
-  listItem.innerHTML = select.value;
-  document.getElementById('hotels-list').appendChild(listItem);
-  let hotelMarker = buildMarker('hotels', );
-});
 
 const restaurantButton = document.getElementById('restaurants-add');
 restaurantButton.addEventListener('click', function() {
