@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
 
-app.use('/', router);
+app.use('/api', router);
 
 app.get('/', function(req, res){
   console.log('I\'m working!');

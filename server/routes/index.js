@@ -8,7 +8,7 @@ const Place = require('../models').Place;
 
 // router.use(bodyParser.json());
 
-router.route('/api')
+router.route('/attractions')
   .get(function(req, res, next) {
     // console.log(req.body);
     let allAttractions = {};
@@ -30,5 +30,7 @@ router.route('/api')
       })
       .catch(next);
   });
+
+
 
 module.exports = router;
