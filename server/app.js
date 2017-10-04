@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 
 const db = require('./models').db;
+const router = require('./routes');
 
 
 //logging middleware & body parser
@@ -15,8 +16,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
 
+app.use('/', router);
 
-app.use('/', function(req, res){
+app.get('/', function(req, res){
   console.log('I\'m working!');
   res.send('Hello');
 });
